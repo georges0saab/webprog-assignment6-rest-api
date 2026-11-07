@@ -1,0 +1,46 @@
+﻿PASS  List all books
+      GET /api/books -> 200 (expected 200)
+      []
+PASS  Create a book
+      POST /api/books -> 201 (expected 201)
+      {"title":"Dune","author":"Herbert","pages":400,"finished":false,"tags":["sci-fi"],"_id":"6aef5688a05
+PASS  Get one book
+      GET /api/books/6aef5688a05ff9d936a8b82d -> 200 (expected 200)
+      {"_id":"6aef5688a05ff9d936a8b82d","title":"Dune","author":"Herbert","pages":400,"finished":false,"ta
+PASS  Search by title
+      GET /api/books?search=dun -> 200 (expected 200)
+      [{"_id":"6aef5688a05ff9d936a8b82d","title":"Dune","author":"Herbert","pages":400,"finished":false,"t
+PASS  Update the book
+      PUT /api/books/6aef5688a05ff9d936a8b82d -> 200 (expected 200)
+      {"_id":"6aef5688a05ff9d936a8b82d","title":"Dune Messiah","author":"Herbert","pages":400,"finished":t
+PASS  Create without a title
+      POST /api/books -> 400 (expected 400)
+      {"error":"title is required"}
+PASS  Create with pages 0
+      POST /api/books -> 400 (expected 400)
+      {"error":"pages must be a whole number of 1 or more"}
+PASS  Create with malformed JSON
+      POST /api/books -> 400 (expected 400)
+      {"error":"Request body is not valid JSON"}
+PASS  Update with an empty title
+      PUT /api/books/6aef5688a05ff9d936a8b82d -> 400 (expected 400)
+      {"error":"title is required"}
+PASS  Get with an invalid id
+      GET /api/books/abc -> 400 (expected 400)
+      {"error":"Invalid id"}
+PASS  Get a book that does not exist
+      GET /api/books/000000000000000000000000 -> 404 (expected 404)
+      {"error":"Book not found"}
+PASS  Update a book that does not exist
+      PUT /api/books/000000000000000000000000 -> 404 (expected 404)
+      {"error":"Book not found"}
+PASS  Delete the book
+      DELETE /api/books/6aef5688a05ff9d936a8b82d -> 204 (expected 204)
+PASS  Delete it again
+      DELETE /api/books/6aef5688a05ff9d936a8b82d -> 404 (expected 404)
+      {"error":"Book not found"}
+PASS  Unknown route
+      GET /nope -> 404 (expected 404)
+      {"error":"Not found"}
+
+All checks passed.
